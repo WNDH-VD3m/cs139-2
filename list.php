@@ -1,10 +1,20 @@
-<?php require 'header.php'; ?>
-<main>
-  <ul>
-    <li>When the list from the main page is clicked it will open this page</li>
-    <li>all the items will be retrieved from the database and displayed here</li>
-    <li>on this page you will be able to add new items to list</li>
-    <li>also you will be able to mark these items as complete</li>
-  </ul>
-</main>
-<?php require 'footer.php'; ?>
+<h1>You are logged in</h1>
+<form action="newList.php" method="post">
+  <input type="text" name="name" placeholder="List name...">
+  <button type="submit" name="create">Create New List</button>
+</form>
+
+<?php
+$username = $_SESSION['userID'];
+$db = new SQLite3('todo.db');
+$statement = $db->prepare('SELECT * FROM List WHERE UserID = :id;');
+$statement->bindValue(':id', $username);
+
+$result = $statement->execute();
+while ($row = $result->fetchArray()) {
+  echo "<form method='post' action='openList.php'>
+  <input type='hidden' name='listName' value='{$row['Name']}'>
+  <button type='submit' name='open'>{$row['Name']}</button>
+  </form>";
+}
+ ?>
