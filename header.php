@@ -25,7 +25,7 @@
             <button type="submit" name="login-submit">Login</button>
           </form>
 
-          <a href="register.php">Register</a>
+          <a href="register.php">Signup</a>
 
           <form action="index.php" method="post">
             <button type="submit" name="Logout-submit">Logout</button>

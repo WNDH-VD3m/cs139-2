@@ -2,6 +2,8 @@ DROP TABLE User;
 CREATE TABLE User (
   UserID INTEGER PRIMARY KEY,
   Name TEXT,
+  Email TEXT,
+  UidUsers TEXT,
   Password TEXT
 );
 

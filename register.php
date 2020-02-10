@@ -2,17 +2,14 @@
 
   <main>
     <div class="main_content">
-      <h1>Register</h1>
-        <form action="index.php">
-          <h2>Name:</h2>
-          <input name="name">
-          <h2>Username:</h2>
-          <input name="username">
-          <h2>Password:</h2>
-          <input type="password" name="user_password">
-          <h2>Confirmation Password:</h2>
-          <input type="password" name="conf_password">
-          <input type="submit" value="Register">
+      <h1>Signup</h1>
+        <form action="signup.inc.php" method="post">
+          <input type="text" name="name" placeholder="Name">
+          <input type="text" name="username" placeholder="Username">
+          <input type="text" name="mail" placeholder="E-mail">
+          <input type="password" name="pwd" placeholder="Password">
+          <input type="password" name="pwd-repeat" placeholder="Confirm Password">
+          <button type="submit" name="signup-submit">Signup</button>
         </form>
     </div>
   </main>
