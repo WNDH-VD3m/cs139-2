@@ -9,17 +9,20 @@ if (isset($_POST['login-submit'])){
   }
   else {
     $db = new SQLite3('todo.db');
+    $statement = $db->prepare('SELECT * FROM User WHERE UidUsers = :id;');
+    $statement->bindValue(':id', $username);
 
-    $sql = $db->prepare('SELECT UidUsers FROM User WHERE UidUsers=:uname;');
-    $sql->bindValue(':uname', $username);
-    $result = $db->exec($sql);
+    $result = $statement->execute();
+    while ($row = $result->fetchArray()) {
+      $username = "{$row['Password']}";
+    }
     if ($result == $username) {
       echo $result;
       echo $username;
       //header("Location: main.php?error=nonusername");
     }
     else {
-      $sql = $db->prepare('SELECT Password FROM User WHERE UidUsers = :uname;');
+      $sql = $db->prepare('SELECT Password FROM User WHERE UidUsers=:uname;');
       $sql->bindValue(':uname', $username);
       $result = $db->exec($sql);
       if($result == $password){
