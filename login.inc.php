@@ -14,7 +14,7 @@ if (isset($_POST['login-submit'])){
 
     $result = $statement->execute();
     while ($row = $result->fetchArray()) {
-      $username = "{$row['Password']}";
+      $username = "{$row['UidUsers']}";
     }
     if ($result == $username) {
       echo $result;
@@ -24,11 +24,14 @@ if (isset($_POST['login-submit'])){
     else {
       $sql = $db->prepare('SELECT Password FROM User WHERE UidUsers=:uname;');
       $sql->bindValue(':uname', $username);
-      $result = $db->exec($sql);
-      if($result == $password){
+      $result = $sql->execute();
+      while ($row = $result->fetchArray()) {
+        $dbpassword = "{$row['Password']}";
+      }
+      if($dbpassword == $password){
         session_start();
         $_SESSION['userID'] = $username;
-        echo $username;
+        header("Location: main.php?done=success");
       }
       else {
         header("Location: main.php?error=wrongpassword");
@@ -36,6 +39,7 @@ if (isset($_POST['login-submit'])){
     }
 
   }
+  $db->close();
 }
 
 else {

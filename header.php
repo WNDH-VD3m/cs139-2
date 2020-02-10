@@ -30,7 +30,7 @@
 
           <a href="register.php">Signup</a>
 
-          <form action="index.php" method="post">
+          <form action="logout.inc.php" method="post">
             <button type="submit" name="logout-submit">Logout</button>
           </form>
         </div>
