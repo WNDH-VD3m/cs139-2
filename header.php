@@ -23,7 +23,7 @@
 
         <div class="header-login">
           <form action="login.inc.php" method="post">
-            <input type="text" name="mailuid" placeholder="Username...">
+            <input type="text" name="username" placeholder="Username...">
             <input type="password" name="pwd" placeholder="Password...">
             <button type="submit" name="login-submit">Login</button>
           </form>

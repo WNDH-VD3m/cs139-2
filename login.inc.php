@@ -1,20 +1,22 @@
 <?php
 if (isset($_POST['login-submit'])){
-  $mailuid = $_POST['mailuid'];
+  $username = $_POST['username'];
   $password = $_POST['pwd'];
 
-  if(empty($mailuid) || empty($password)){
+  if(empty($username) || empty($password)){
     header("Location: main.php?error=emptyfields");
     exit();
   }
   else {
     $db = new SQLite3('todo.db');
 
-    $sql = $db->prepare('SELECT UidUsers FROM User WHERE UidUsers = :uname;');
+    $sql = $db->prepare('SELECT UidUsers FROM User WHERE UidUsers=:uname;');
     $sql->bindValue(':uname', $username);
     $result = $db->exec($sql);
-    if ($result == null) {
-      header("Location: main.php?error=nonuser");
+    if ($result == $username) {
+      echo $result;
+      echo $username;
+      //header("Location: main.php?error=nonusername");
     }
     else {
       $sql = $db->prepare('SELECT Password FROM User WHERE UidUsers = :uname;');
