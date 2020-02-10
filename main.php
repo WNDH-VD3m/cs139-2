@@ -4,6 +4,14 @@
     <ul>
       <li>Display the lists here</li>
     </ul>
+    <?php
+      if (isset($_SESSION['userID'])) {
+        echo '<h1>logged in</h1>';
+      }
+      else {
+        echo '<h1>logged out</h1>';
+      }
+     ?>
     <h2>You will see this page after you have signed into the system</h2>
     <p>The page will be used for displaying current lists</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut

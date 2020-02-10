@@ -39,9 +39,13 @@ if (isset($_POST['signup-submit'])) {
     }
     else {
       $db->exec("INSERT INTO User(Name, Email, UidUsers, Password) Values('$name', '$mail', '$username', '$pwd')");
-      echo $name;
-      //header("Location: register.php?error=non");
+      header("Location: register.php?signup=success");
+      exit();
     }
   }
+  $db->close();
 }
-?>
+
+else{
+  header("Location: register.php");
+}

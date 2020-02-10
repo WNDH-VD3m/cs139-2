@@ -1,3 +1,6 @@
+<?php
+  session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -19,8 +22,8 @@
         </ul>
 
         <div class="header-login">
-          <form action="main.php" method="post">
-            <input type="text" name="mailuid" placeholder="Username/E-mail...">
+          <form action="login.inc.php" method="post">
+            <input type="text" name="mailuid" placeholder="Username...">
             <input type="password" name="pwd" placeholder="Password...">
             <button type="submit" name="login-submit">Login</button>
           </form>
@@ -28,7 +31,7 @@
           <a href="register.php">Signup</a>
 
           <form action="index.php" method="post">
-            <button type="submit" name="Logout-submit">Logout</button>
+            <button type="submit" name="logout-submit">Logout</button>
           </form>
         </div>
       </nav>
