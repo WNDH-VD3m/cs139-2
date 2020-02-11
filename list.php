@@ -13,7 +13,8 @@ $result = $statement->execute();
 while ($row = $result->fetchArray()) {
   echo "<form method='post' action='openList.php'>
   <input type='hidden' name='listID' value='{$row['ListID']}'>
-  <button type='submit' name='open'>{$row['Name']}</button>
+  <p>List:
+  <button type='submit' name='open'>{$row['Name']}</button></p>
   </form>";
 }
  ?>

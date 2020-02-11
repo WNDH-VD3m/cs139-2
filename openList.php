@@ -7,6 +7,9 @@ $listID = $_POST['listID'];
   <input type="text" name="content">
   <button type="submit" name="button">add new item</button>
 </form>
+<form class="" action="main.php" method="post">
+  <button type="submit" name="button">Back</button>
+</form>
 <?php
 //$listID = $_POST['listID'];
 $db = new SQLite3('todo.db');
