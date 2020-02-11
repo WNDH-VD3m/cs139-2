@@ -15,6 +15,7 @@ if (isset($_POST['login-submit'])){
     $result = $statement->execute();
     while ($row = $result->fetchArray()) {
       $username = "{$row['UidUsers']}";
+      $name = "{$row['Name']}";
     }
     if ($result == $username) {
       echo $result;
@@ -31,6 +32,7 @@ if (isset($_POST['login-submit'])){
       if($dbpassword == $password){
         session_start();
         $_SESSION['userID'] = $username;
+        $_SESSION['userName'] = $name;
         header("Location: main.php?done=success");
       }
       else {

@@ -1,4 +1,3 @@
-<h1>You are logged in</h1>
 <form action="newList.php" method="post">
   <input type="text" name="name" placeholder="List name...">
   <button type="submit" name="create">Create New List</button>
