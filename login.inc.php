@@ -18,18 +18,19 @@ if (isset($_POST['login-submit'])){
       $name = "{$row['Name']}";
     }
     if ($result == $username) {
-      echo $result;
-      echo $username;
-      //header("Location: main.php?error=nonusername");
+      //echo $result;
+      //echo $username;
+      header("Location: main.php?error=nonusername");
     }
     else {
-      $sql = $db->prepare('SELECT Password FROM User WHERE UidUsers=:uname;');
+      $sql = $db->prepare('SELECT Password, Salt FROM User WHERE UidUsers=:uname;');
       $sql->bindValue(':uname', $username);
       $result = $sql->execute();
       while ($row = $result->fetchArray()) {
         $dbpassword = "{$row['Password']}";
+        $salt = "{$row['Salt']}";
       }
-      if($dbpassword == $password){
+      if($dbpassword == sha1($salt."--".$password)){
         session_start();
         $_SESSION['userID'] = $username;
         $_SESSION['userName'] = $name;
@@ -45,5 +46,5 @@ if (isset($_POST['login-submit'])){
 }
 
 else {
-  header("Location: main.php");
+  header("Location: main.php?nah");
 }

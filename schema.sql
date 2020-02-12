@@ -4,7 +4,8 @@ CREATE TABLE User (
   Name TEXT,
   Email TEXT,
   UidUsers TEXT,
-  Password TEXT
+  Password TEXT,
+  Salt TEXT
 );
 
 DROP TABLE List;

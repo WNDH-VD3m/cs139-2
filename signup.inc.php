@@ -29,18 +29,30 @@ if (isset($_POST['signup-submit'])) {
   }
   else {
     $db = new SQLite3('todo.db');
-
     $sql = $db->prepare('SELECT UidUsers FROM User WHERE UidUsers = :uname;');
     $sql->bindValue(':uname', $username);
-    $result = $db->exec($sql);
-    if ($result !== null) {
-      header("Location: register.php?error=sqllerror&name=".$name."&mail=".$mail);
+    $result = $sql->execute();
+    $usr = "0";
+    while ($row = $result->fetchArray()) {
+      $usr = "{$row['UidUsers']}";
+    }
+    if ($usr !== "0"){
+      header("Location: main.php?usrnameinuse");
       exit();
     }
     else {
-      $db->exec("INSERT INTO User(Name, Email, UidUsers, Password) Values('$name', '$mail', '$username', '$pwd')");
-      header("Location: register.php?signup=success");
-      exit();
+      $salt = sha1(time());
+      $encrypted_password = sha1($salt."--".$pwd);
+      $db->exec("INSERT INTO User(Name, Email, UidUsers, Password, Salt) Values('$name', '$mail', '$username', '$encrypted_password', '$salt')");?>
+      <form name="login" action="login.inc.php" method="post">
+        <input type='hidden' name='username' value='<?php echo "$username" ?>'>
+        <input type='hidden' name='pwd' value='<?php echo "$pwd" ?>'>
+        <input type="hidden" name="login-submit" value="true">
+      </form>
+      <script type="text/javascript">
+        document.login.submit();
+      </script>
+    <?php  exit();
     }
   }
   $db->close();
