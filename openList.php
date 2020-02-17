@@ -7,7 +7,7 @@ $listID = $_POST['listID'];
   <input type="text" name="content">
   <button type="submit" name="button">add new item</button>
 </form>
-<form class="" action="main.php" method="post">
+<form class="" action="index.php" method="post">
   <button type="submit" name="button">Back</button>
 </form>
 <?php

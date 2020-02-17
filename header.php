@@ -11,14 +11,14 @@
   <body>
     <header>
       <nav class="nav-header-main">
-        <a class="header-logo" href="main.php">
+        <a class="header-logo" href="index.php">
           <img src="logo.jpg" alt="Logo" style="width: 50px;">
         </a>
 
         <ul>
-          <li> <a href="main.php">Home</a></li>
+          <li> <a href="index.php">Home</a></li>
           <li> <a href="about.php">About us</a></li>
-          <li> <a href="main.php">Contact</a></li>
+          <li> <a href="index.php">Contact</a></li>
         </ul>
         <?php if (isset($_SESSION['userID'])) { ?>
           <div class="header-login">

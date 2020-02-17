@@ -13,5 +13,5 @@ if ($content != null) {
   </script>
 <?php }
 else {
-  header("Location: main.php?newitem=unsuccess");
+  header("Location: index.php?newitem=unsuccess");
 }

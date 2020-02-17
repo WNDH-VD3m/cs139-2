@@ -37,7 +37,7 @@ if (isset($_POST['signup-submit'])) {
       $usr = "{$row['UidUsers']}";
     }
     if ($usr !== "0"){
-      header("Location: main.php?usrnameinuse");
+      header("Location: index.php?usrnameinuse");
       exit();
     }
     else {
