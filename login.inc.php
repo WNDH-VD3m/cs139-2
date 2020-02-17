@@ -14,10 +14,10 @@ if (isset($_POST['login-submit'])){
 
     $result = $statement->execute();
     while ($row = $result->fetchArray()) {
-      $username = "{$row['UidUsers']}";
+      $username_db = "{$row['UidUsers']}";
       $name = "{$row['Name']}";
     }
-    if ($result == $username) {
+    if ($username_db != $username) {
       //echo $result;
       //echo $username;
       header("Location: index.php?error=nonusername");
