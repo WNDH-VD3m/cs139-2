@@ -30,20 +30,27 @@ if (isset($_POST['signup-submit'])) {
   else {
     $db = new SQLite3('todo.db');
     $sql = $db->prepare('SELECT UidUsers FROM User WHERE UidUsers = :uname;');
-    $sql->bindValue(':uname', $username);
+    $sql->bindValue(':uname', $username, SQLITE3_TEXT);
     $result = $sql->execute();
     $usr = "0";
     while ($row = $result->fetchArray()) {
       $usr = "{$row['UidUsers']}";
     }
     if ($usr !== "0"){
-      header("Location: main.php?usrnameinuse");
+      header("Location: index.php?usrnameinuse");
       exit();
     }
     else {
       $salt = sha1(time());
       $encrypted_password = sha1($salt."--".$pwd);
-      $db->exec("INSERT INTO User(Name, Email, UidUsers, Password, Salt) Values('$name', '$mail', '$username', '$encrypted_password', '$salt')");?>
+      $stmt = $db->prepare("INSERT INTO User(Name, Email, UidUsers, Password, Salt) Values(:name, :mail, :uname, :e_pwd, :salt)");
+      $stmt->bindValue(':name', $name, SQLITE3_TEXT);
+      $stmt->bindValue(':mail', $mail, SQLITE3_TEXT);
+      $stmt->bindValue(':uname', $username, SQLITE3_TEXT);
+      $stmt->bindValue(':e_pwd', $encrypted_password, SQLITE3_TEXT);
+      $stmt->bindValue(':salt', $salt, SQLITE3_TEXT);
+      $results = $stmt->execute();
+      ?>
       <form name="login" action="login.inc.php" method="post">
         <input type='hidden' name='username' value='<?php echo "$username" ?>'>
         <input type='hidden' name='pwd' value='<?php echo "$pwd" ?>'>
