@@ -1,4 +1,5 @@
 <?php
+include 'security.php';
 $name = $_POST['name'];
 $db = new SQLite3('todo.db');
 session_start();
@@ -16,13 +17,13 @@ while ($row = $result->fetchArray()) {
 }
 if ($name != null) {
   $statement = $db->prepare("INSERT INTO List(UserID, Name, DateCreated) Values(:userid, :name, :date_now)");
-  $statement->bindValue(':userid', $user, SQLITE3_INTEGER);
-  $statement->bindValue(':name', $name, SQLITE3_TEXT);
+  $statement->bindValue(':userid', h($user), SQLITE3_INTEGER);
+  $statement->bindValue(':name', h($name), SQLITE3_TEXT);
   $statement->bindValue(':date_now', $date, SQLITE3_DATE);
   $results = $statement->execute();
-  header("Location: index.php?newlist=success");
+  header("Location: main.php?newlist=success");
 }
 
 else {
-  header("Location: index.php?newlist=unsuccess");
+  header("Location: main.php?newlist=unsuccess");
 }

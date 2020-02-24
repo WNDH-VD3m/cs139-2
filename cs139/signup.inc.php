@@ -1,4 +1,5 @@
 <?php
+include 'security.php';
 if (isset($_POST['signup-submit'])) {
   //require 'dbhandling.inc.php';
 
@@ -30,7 +31,7 @@ if (isset($_POST['signup-submit'])) {
   else {
     $db = new SQLite3('todo.db');
     $sql = $db->prepare('SELECT UidUsers FROM User WHERE UidUsers = :uname;');
-    $sql->bindValue(':uname', $username, SQLITE3_TEXT);
+    $sql->bindValue(':uname', h($username), SQLITE3_TEXT);
     $result = $sql->execute();
     $usr = "0";
     while ($row = $result->fetchArray()) {
@@ -44,9 +45,9 @@ if (isset($_POST['signup-submit'])) {
       $salt = sha1(time());
       $encrypted_password = sha1($salt."--".$pwd);
       $stmt = $db->prepare("INSERT INTO User(Name, Email, UidUsers, Password, Salt) Values(:name, :mail, :uname, :e_pwd, :salt)");
-      $stmt->bindValue(':name', $name, SQLITE3_TEXT);
-      $stmt->bindValue(':mail', $mail, SQLITE3_TEXT);
-      $stmt->bindValue(':uname', $username, SQLITE3_TEXT);
+      $stmt->bindValue(':name', h($name), SQLITE3_TEXT);
+      $stmt->bindValue(':mail', h($mail), SQLITE3_TEXT);
+      $stmt->bindValue(':uname', h($username), SQLITE3_TEXT);
       $stmt->bindValue(':e_pwd', $encrypted_password, SQLITE3_TEXT);
       $stmt->bindValue(':salt', $salt, SQLITE3_TEXT);
       $results = $stmt->execute();

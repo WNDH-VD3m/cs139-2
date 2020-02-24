@@ -1,4 +1,5 @@
 <?php
+include 'security.php';
 if (isset($_POST['login-submit'])){
   $username = $_POST['username'];
   $password = $_POST['pwd'];
@@ -24,7 +25,7 @@ if (isset($_POST['login-submit'])){
     }
     else {
       $sql = $db->prepare('SELECT Password, Salt FROM User WHERE UidUsers=:uname;');
-      $sql->bindValue(':uname', $username, SQLITE3_TEXT);
+      $sql->bindValue(':uname', h($username), SQLITE3_TEXT);
       $result = $sql->execute();
       while ($row = $result->fetchArray()) {
         $dbpassword = "{$row['Password']}";
