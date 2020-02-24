@@ -22,7 +22,7 @@
         </ul>
         <?php if (isset($_SESSION['userID'])) { ?>
           <div class="header-login">
-            <a>Hello <?php echo $_SESSION['userName']; ?></a>
+            <a>Hello <?php echo $_SESSION['Name']; ?></a>
             <form action="logout.inc.php" method="post">
               <button type="submit" name="logout-submit">Logout</button>
             </form>
