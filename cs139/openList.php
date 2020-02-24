@@ -20,7 +20,7 @@ if ($listID != null) {
 
   $result = $statement->execute();
   while ($row = $result->fetchArray()) {
-    echo (h($row['Content']) . "<br>");
+    echo ($row['Content'] . "<br>");
   }
 }
 $db->close();

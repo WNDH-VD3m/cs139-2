@@ -6,7 +6,7 @@ $db = new SQLite3('todo.db');
 if ($content != null) {
   $stmt = $db->prepare("INSERT INTO ListItems(ListID, Content, Done) Values(:listID, :content, 'No')");
   $stmt->bindValue(':listID', $listID, SQLITE3_INTEGER); // Step 3
-  $stmt->bindValue(':content', h($content, SQLITE3_TEXT)); // Step 3
+  $stmt->bindValue(':content', h($content), SQLITE3_TEXT); // Step 3
   $results = $stmt->execute();
   ?>
   <form name="back" action="openList.php" method="post">

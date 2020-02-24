@@ -17,7 +17,7 @@ while ($row = $result->fetchArray()) {
 }
 if ($name != null) {
   $statement = $db->prepare("INSERT INTO List(UserID, Name, DateCreated) Values(:userid, :name, :date_now)");
-  $statement->bindValue(':userid', h($user), SQLITE3_INTEGER);
+  $statement->bindValue(':userid', $user, SQLITE3_INTEGER);
   $statement->bindValue(':name', h($name), SQLITE3_TEXT);
   $statement->bindValue(':date_now', $date, SQLITE3_DATE);
   $results = $statement->execute();
