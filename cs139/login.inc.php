@@ -1,11 +1,10 @@
 <?php
-include 'security.php';
 if (isset($_POST['login-submit'])){
   $username = $_POST['username'];
   $password = $_POST['pwd'];
 
   if(empty($username) || empty($password)){
-    header("Location: main.php?error=emptyfields");
+    header("Location: index.php?error=emptyfields");
     exit();
   }
   else {
@@ -21,11 +20,11 @@ if (isset($_POST['login-submit'])){
     if ($username_db != $username) {
       //echo $result;
       //echo $username;
-      header("Location: main.php?error=nonusername");
+      header("Location: index.php?error=nonusername");
     }
     else {
       $sql = $db->prepare('SELECT Password, Salt FROM User WHERE UidUsers=:uname;');
-      $sql->bindValue(':uname', h($username), SQLITE3_TEXT);
+      $sql->bindValue(':uname', $username, SQLITE3_TEXT);
       $result = $sql->execute();
       while ($row = $result->fetchArray()) {
         $dbpassword = "{$row['Password']}";
@@ -35,10 +34,10 @@ if (isset($_POST['login-submit'])){
         session_start();
         $_SESSION['userID'] = $username;
         $_SESSION['userName'] = $name;
-        header("Location: main.php?done=success");
+        header("Location: index.php?done=success");
       }
       else {
-        header("Location: main.php?error=wrongpassword");
+        header("Location: index.php?error=wrongpassword");
       }
     }
 
@@ -47,5 +46,5 @@ if (isset($_POST['login-submit'])){
 }
 
 else {
-  header("Location: main.php?error");
+  header("Location: index.php?error");
 }
